@@ -2,6 +2,8 @@ from django.db import models
 
 class Category(models.Model) :
     category = models.CharField(max_length=128)
+    region = models.ManyToManyField('Region', through = 'Site')
+    states = models.ManyToManyField('States', through = 'Site')
 
     def __str__(self) :
         return self.category
