@@ -14,36 +14,37 @@ Iso.objects.all().delete()
 i = 0
 for row in reader:
     if i == 0:
+        i = i + 1
         continue
 
     print(row)
 
     try:
-        iso_obj = Iso.objects.get(iso = row[10])
+        iso_obj = Iso.objects.get(name = row[10])
     except:
         print('inserting iso: ' + row[10])
-        iso_obj = Iso(iso = row[10])
+        iso_obj = Iso(name = row[10])
         iso_obj.save()
 
     try:
-        r = Region.objects.get(region = row[9])
+        r = Region.objects.get(name = row[9])
     except:
         print('inserting region: ' + row[9])
-        r = Region(region = row[9])
+        r = Region(name = row[9])
         r.save()
 
     try:
-        s = States.objects.get(state = row[8])
+        s = States.objects.get(name = row[8])
     except:
-        print('inserting state: ' + row[8])
-        s = States(state = row[8])
+        print('inserting states: ' + row[8])
+        s = States(name = row[8])
         s.save()
 
     try:
-        c = Category.objects.get(category = row[7])
+        c = Category.objects.get(name = row[7])
     except:
         print('inserting category: ' + row[7])
-        c = Category(category = row[7])
+        c = Category(name = row[7])
         c.save()
 
     try:
@@ -82,4 +83,4 @@ for row in reader:
     s = Site(name=site_name, year=y, category=c, states=s, region=r, iso=iso_obj, description=desc, justification=j, longitude=lng, latitude=lat, area_hectares=a)
     s.save()
 
-    i += 1
+    i = i + 1

@@ -1,28 +1,37 @@
 from django.db import models
 
 class Category(models.Model) :
-    category = models.CharField(max_length=128)
+    name = models.CharField(max_length=128)
+    region_id = models.ManyToManyField('Region', through = 'Site')
+    states_id = models.ManyToManyField('States', through = 'Site')
+
 
     def __str__(self) :
-        return self.category
+        return self.name
 
 class States(models.Model) :
-    state = models.CharField(max_length=128)
+    name = models.CharField(max_length=128)
+    region_id = models.ManyToManyField('Region', through = 'Site')
+    category_id = models.ManyToManyField('Category', through = 'Site')
 
     def __str__(self) :
-        return self.state
+        return self.name
 
 class Region(models.Model) :
-    region = models.CharField(max_length=128)
+    name = models.CharField(max_length=128)
+    states_id = models.ManyToManyField('States', through = 'Site')
+    category_id = models.ManyToManyField('Category', through = 'Site')
 
     def __str__(self) :
-        return self.region
+        return self.name
 
 class Iso(models.Model) :
-    iso = models.CharField(max_length=128)
+    name = models.CharField(max_length=128)
+    states_id = models.ManyToManyField('States', through = 'Site')
+
 
     def __str__(self) :
-        return self.iso
+        return self.name
 
 
 class Site(models.Model):
